@@ -14,3 +14,11 @@ Ensuite, il fallait adapter le code pour pour qu'il soit compilé avec cette ver
 ```
 
 Dans la fonction __withdrawPayments__, nous avons d'abord modifié les variables d'états avant les appels externes.
+
+Nous avons ensuite ajouté la fonction __receive__ qui doit exister dans le contract quand on fait appel au __fallback__ dans les nouvelles versions de solidity. Cette version ne fait autre chose que d'émettre un événement.
+
+```
+receive() external payable {
+  emit Ownable(owner);
+}
+```
