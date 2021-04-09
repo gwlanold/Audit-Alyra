@@ -7,4 +7,10 @@ Le premier changement a été de changer la version de solidity utilisée pour u
 pragma solidity 0.8.0;
 ```
 
-Ensuite, il fallait adapter le code pour pour qu'il soit compilé avec cette version. Par exemple, la fonction Crowdsale qui portait le même nom que le contract a été remplacé par le constructor. Dans ce constructeur, __tx.origin__ a été remplacé par __msg.sender__ pour une meilleure gestion des appels externes au contract.
+Ensuite, il fallait adapter le code pour pour qu'il soit compilé avec cette version. Par exemple, la fonction __Crowdsale__ qui portait le même nom que le contract a été remplacé par le constructor. Dans ce constructeur, __tx.origin__ a été remplacé par __msg.sender__ pour gérer les attaques liées aux appels externes au contract. Pour empêcher l'envoie de données autre que les eth, nous exigeons que le champ data de msg soit vide.
+
+```
+ require(msg.data.length == 0);
+```
+
+Dans la fonction __withdrawPayments__, nous avons d'abord modifié les variables d'états avant les appels externes.
